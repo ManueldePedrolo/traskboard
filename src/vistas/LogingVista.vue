@@ -17,8 +17,8 @@ import { doLogin, enviarEmailVerificacion } from '@/services/autentication'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 
-const router = useRouter()
 const toast = useToast()
+const router = useRouter()
 const email = ref('')
 const password = ref('')
 
