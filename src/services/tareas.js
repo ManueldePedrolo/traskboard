@@ -111,7 +111,7 @@ export const obtenerFavoritos = async () => {
 
   return {
     ok: true,
-    favs: favoritos,
+    favs: tareas,
   }
 }
 
