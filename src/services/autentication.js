@@ -45,6 +45,9 @@ const doLogin = async (email, password) => {
     }
   } catch (error) {
     console.log(error)
+    return {
+      ok: false,
+    }
   }
 }
 // HOW TO USE:

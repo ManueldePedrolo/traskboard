@@ -1,23 +1,28 @@
 <template>
-  <div>
-    <h1>Bienvenido al Register</h1>
-    <form @submit.prevent="registrar">
-      <input type="email" id="email" v-model="email" placeholder="email" />
-      <input type="password" id="password" v-model="password" placeholder="contraseña" />
-      <input
-        type="password"
-        id="Comprobarpassword"
-        v-model="Comprobarpassword"
-        placeholder="contraseña"
-      />
-      <button>Registrar</button>
+  <div class="contenedor">
+    <h1 class="saludo">Bienvenido al Register</h1>
+    <form @submit.prevent="registrar" class="formulario">
+
+      <label>Email</label>
+      <input type="email" id="email" v-model="email" class="email" placeholder="Introduce tu email" />
+      
+      <label>Contraseña</label>
+      <input type="password" id="password" v-model="password" class="password" placeholder="Crea una contraseña" />
+      
+      <label>Repetir Contraseña</label>
+      <input type="password" id="Comprobarpassword" v-model="Comprobarpassword" class="password" placeholder="Repite la contraseña"/>
+      
+      <button class="boton">Registrar</button>
+
     </form>
-    <router-link to="/login">¿Estas logeado?</router-link>
+
+    <router-link to="/login" class="registro">¿Ya estás registrado? Loguéate</router-link>
+    
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { doRegister, enviarEmailVerificacion } from '@/services/autentication'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
