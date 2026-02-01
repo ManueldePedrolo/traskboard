@@ -80,10 +80,10 @@ const login = async () => {
 }
 </script>
 
-<style scope lang="sass">
-$primario: #42b883
-$oscuro: #2c3e50
-$fondo: #f4f7f6
+<style scoped lang="sass">
+
+
+
 $blanco: #ffffff
 
 .contenedor
@@ -92,19 +92,19 @@ $blanco: #ffffff
   align-items: center
   justify-content: center
   min-height: 100vh
-  background-color: $fondo
+  background-color: #f4f7f6
   padding: 20px
   box-sizing: border-box
 
   .saludo
-    color: $oscuro
+    color: #2c3e50
     font-size: 1.8rem
     margin-bottom: 2rem
     text-align: center
     font-family: sans-serif
 
   .formulario
-    background: $blanco
+    background: #ffffff
     padding: 2.5rem
     border-radius: 15px
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1)
@@ -115,7 +115,7 @@ $blanco: #ffffff
     box-sizing: border-box
 
     label
-      color: $oscuro
+      color: #2c3e50
       font-weight: bold
       font-size: 0.9rem
       margin-bottom: 5px
@@ -133,13 +133,13 @@ $blanco: #ffffff
       box-sizing: border-box
 
       &:focus
-        border-color: $primario
+        border-color: #42b883
         outline: none
 
     .boton
       width: 100%
-      background-color: $primario
-      color: $blanco
+      background-color: #42b883
+      color: #ffffff
       border: none
       padding: 14px
       border-radius: 8px
@@ -157,13 +157,13 @@ $blanco: #ffffff
 
   .registro
     margin-top: 1.5rem
-    color: $oscuro
+    color: #2c3e50
     text-decoration: none
     font-size: 1rem
     font-family: sans-serif
 
     &:hover
-      color: $primario
+      color: #42b883
 
 @media (max-width: 480px)
   .contenedor

@@ -14,11 +14,7 @@ onAuthStateChanged(auth, (firebaseUser) => {
   user.value = firebaseUser
 })
 
-//HOW TO USE:
-//   Crear funcion registrar async
-//          const res = await doRegister(email.value, password.value)
-//          if(res.ok) >>>>>>> EL REGISTRO FUNCIONO!
-//              y ya hacemos las pirulas necesarias
+
 const doRegister = async (email, password) => {
   try {
     const credenciales = await createUserWithEmailAndPassword(auth, email, password)
@@ -31,11 +27,6 @@ const doRegister = async (email, password) => {
   }
 }
 
-//HOW TO USE:
-//   Crear funcion logear
-//          const res = await doLogin(email.value, password.value)
-//          if(res.ok) >>>>>>> EL REGISTRO FUNCIONO!
-//              y ya hacemos las pirulas necesarias
 const doLogin = async (email, password) => {
   try {
     const credenciales = await signInWithEmailAndPassword(auth, email, password)
@@ -50,22 +41,19 @@ const doLogin = async (email, password) => {
     }
   }
 }
-// HOW TO USE:
-//     crear funcion salir async
-//         await logout() y ya
-// if res.ok => ya hacemos cosas
+
 const logOut = async () => {
-  try {
-    await signOut(auth)
-    return {
-      ok: true,
+    try {
+        await signOut(auth)
+        return{
+            ok:true
+        }
+    } catch (error) {
+        console.log(error)
     }
-  } catch (error) {
-    console.log(error)
-  }
 }
 
-//HOW TO USE:
+
 export const enviarEmailVerificacion = async (usuarioActual = null) => {
   try {
     const usuario = usuarioActual || auth.currentUser

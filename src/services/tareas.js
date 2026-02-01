@@ -2,10 +2,6 @@ import { db } from '@/firebase/config'
 import { doc, getDocs, setDoc, getDoc, addDoc, collection } from 'firebase/firestore'
 import { auth } from '@/firebase/config'
 
-//HOW TO USE:
-//  const async guardar()
-// res = await guardar ( user.value , {OBJETO CON DATOS})
-// if(res.ok) ==> se guardó //
 const guardar = async (user, datos) => {
   try {
     const docRef = doc(db, 'usuarios', user.uid)
@@ -21,10 +17,6 @@ const guardar = async (user, datos) => {
   }
 }
 
-//HOW TO USE:
-// const async conseguire()
-// res = await conseguir(user.value) ==> si va todo bien pues ya tienes los datos en
-// res.data
 const conseguir = async (user) => {
   try {
     const docRef = doc(db, 'usuarios', user.uid)
@@ -45,10 +37,7 @@ const conseguir = async (user) => {
     }
   }
 }
-//HOW TO USE
-// const async conseguirdocs()
-// res = await conseguirDocs()
-// RES => RES.DATA SERAN LOS OBJETOS DE FAVORITOS
+
 const conseguirDocs = async () => {
   try {
     const docRef = collection(db, 'usuarios')
@@ -69,10 +58,6 @@ const conseguirDocs = async () => {
   }
 }
 
-////HOW TO USE:
-//  const async guardar()
-// res = await guardar ( user.value , {OBJETO CON DATOS})
-// if(res.ok) ==> se guardó // CREA UN NUEVO DOCUMENTO, NO LO ACTUALIZA // favoritos?
 const anadirDoc = async (datos) => {
   try {
     const docRef = collection(db, 'culonuevo')
@@ -88,7 +73,6 @@ const anadirDoc = async (datos) => {
   }
 }
 
-//Asi añado favoritos
 export const anadirFavoritos = async (favorito) => {
   const user = auth.currentUser
   const favoritosRef = collection(db, 'usuarios', user.uid, 'favoritos')
@@ -97,7 +81,7 @@ export const anadirFavoritos = async (favorito) => {
     ok: true,
   }
 }
-//Asi recupero subcolecciones
+
 export const obtenerFavoritos = async () => {
   const user = auth.currentUser
 
