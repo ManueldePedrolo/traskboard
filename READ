@@ -1,0 +1,53 @@
+¡Bienvenido a Task Manager!
+¡Hola! Este es mi gestor de tareas personalizado. La idea del proyecto es mezclar una lista de tareas externa (sacada de la API de DummyJSON) con mi propio sistema de guardado usando Firebase. El objetivo es que los usuarios puedan "adueñarse" de tareas y gestionarlas en su propio espacio de trabajo sin que otros puedan interferir.
+
+Archivos
+El proyecto está organizado en una estructura limpia de Vue 3, separando la lógica de Firebase de lo que son los componentes visuales:
+
+Vistas principales
+HomeVista.vue: Es la pantalla principal. Aquí cargo los "todos" de la API y los cruzo con la base de datos para ver quién es el dueño de cada una.
+
+Workspace.vue: Tu área privada. Aquí solo aparecen las tareas que tú mismo has decidido agregar.
+
+Login/Register: Vistas para gestionar el acceso de usuarios con Firebase Auth.
+
+Servicios y Configuración
+autentication.js: Maneja el login, registro y, sobre todo, que la sesión no se borre al actualizar.
+
+tareas.js: Contiene las llamadas a Firestore (la base de datos), donde guardo los favoritos en la colección culonuevo.
+
+peticion.js: Un store de Pinia que centraliza las peticiones de Axios a la API de DummyJSON.
+
+Router
+El archivo index.js gestiona la navegación. He implementado Navigation Guards para que nadie pueda entrar al Home o al Workspace si no está logueado.
+
+Sincronización
+La sincronización es el motor de esta app. No es solo mostrar datos, sino cruzar dos fuentes de información en tiempo real:
+
+Cruce de datos: Al entrar al Home, el sistema descarga los datos de DummyJSON y, al mismo tiempo, consulta mi Firestore. Si un ID de la API coincide con uno de la base de datos, el sistema le inyecta el userId dinámicamente.
+
+Persistencia de sesión: Gracias al observador onAuthStateChanged, si refrescas la página (F5), la app no te echa. He configurado un sistema de espera para que Vue no intente cargar nada hasta que Firebase confirme que sigues ahí.
+
+Lógica de estados
+Para evitar conflictos entre usuarios, el sistema sigue estas reglas:
+
+Tarea Libre: El botón aparece como Agregar.
+
+Tarea Ocupada: Si el userId guardado no es el tuyo, el botón cambia a Asignada y se bloquea.
+
+Tarea Completada: Si la tarea ya viene terminada desde la fuente original, el botón se oculta por completo.
+
+Publicación
+Para la interfaz y el feedback visual, he integrado varias herramientas que hacen que la app se sienta más fluida y profesional:
+
+Toasts: Uso vue-toastification para dar avisos rápidos (éxito al guardar, errores, etc.).
+
+Diseño Responsive: Los estilos en Sass están pensados para que la rejilla de tareas se adapte a móviles y tablets sin romperse.
+
+Extensiones de Markdown
+En este proyecto he puesto especial atención a los detalles visuales, sobre todo durante los tiempos de carga que requiere la sincronización:
+
+SpinKit
+Para los estados de carga (mientras la app sincroniza la API con Firebase), he utilizado los diseños de SpinKit. Aqui la url de la pagina: https://tobiasahlin.com/spinkit/
+
+Específicamente, he integrado y personalizado el sk-folding-cube.
