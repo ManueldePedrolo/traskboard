@@ -17,18 +17,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-  const user = auth.currentUser // Obtenemos el usuario actual de Firebase
+  const user = auth.currentUser 
 
   if (requiresAuth) {
     if (!user) {
-      // Si no hay usuario, al login
       next('/login')
     } else if (!user.emailVerified) {
-      // Si hay usuario pero NO está verificado, al login
-      // Podrías poner un toast aquí avisando "Revisa tu correo"
       next('/login')
     } else {
-      // Logueado y verificado -> Pasa
       next()
     }
   } else {
