@@ -92,11 +92,6 @@
 </script>
 
 <style scoped lang="sass">
-
-
-
-$blanco: #ffffff
-
 .contenedor
   display: flex
   flex-direction: column

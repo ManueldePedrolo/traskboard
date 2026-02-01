@@ -28,22 +28,9 @@
       </div>
 
       <template v-if="!i.completed">
-        <button 
-          id="boton" 
-          v-if="!i.userId" 
-          @click="favorito(i)"
-        > 
-          Agregar
-        </button>
+        <button id="boton" v-if="!i.userId" @click="favorito(i)"> Agregar</button>
 
-        <button 
-          id="boton" 
-          v-else-if="i.userId !== user?.uid" 
-          disabled 
-          style="background: #cbd5e0; cursor: not-allowed;"
-        >
-          Asignada
-        </button>
+        <button id="boton" v-else-if="i.userId !== user?.uid" disabled style="background: #cbd5e0; cursor: not-allowed;"> Asignada</button>
       </template>
     </div>
   </div>
