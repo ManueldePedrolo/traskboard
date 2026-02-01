@@ -75,7 +75,9 @@ export const enviarEmailVerificacion = async (usuarioActual = null) => {
     console.log('Ha habido un problema al enviar el correo de verificación')
   }
 }
-
+export const esEmailVerificado = () => {
+  return auth.currentUser?.emailVerified || false
+}
 export const estaAuntenticado = () => {
   return user.value !== null
 }

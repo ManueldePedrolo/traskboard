@@ -15,7 +15,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { doLogin, enviarEmailVerificacion } from '@/services/autentication'
+import { doLogin, enviarEmailVerificacion, logOut } from '@/services/autentication'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 
@@ -25,57 +25,29 @@ const email = ref('')
 const password = ref('')
 
 const login = async () => {
-  const response = await doLogin(email.value, password.value)
-  const usuario = response?.user?.user
-  const respuestamail = enviarEmailVerificacion(usuario)
-  if (respuestamail) {
+  try {
+    const response = await doLogin(email.value, password.value)
+    
     if (response.ok) {
-      toast.success('La informacion correcta', {
-        position: 'top-right',
-        timeout: 5000,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: true,
-        draggable: true,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: 'button',
-        icon: true,
-        rtl: false,
-      })
+      const usuario = response.user.user
+
+      if (!usuario.emailVerified) {
+        await enviarEmailVerificacion(usuario)
+        
+        toast.error('Debes verificar tu email para entrar. Te hemos enviado un nuevo enlace.')
+      
+        await logOut()
+        return 
+      }
+      toast.success('Información correcta, ¡bienvenido!')
       router.push('/')
+      
     } else {
-      toast.error('No coinciden las constraseña', {
-        position: 'top-right',
-        timeout: 5000,
-        closeOnClick: true,
-        pauseOnFocusLoss: true,
-        pauseOnHover: true,
-        draggable: true,
-        draggablePercent: 0.6,
-        showCloseButtonOnHover: false,
-        hideProgressBar: true,
-        closeButton: 'button',
-        icon: true,
-        rtl: false,
-      })
+      toast.error('Usuario o contraseña incorrectos')
     }
-  } else {
-    toast.error('Debes verificar el', {
-      position: 'top-right',
-      timeout: 5000,
-      closeOnClick: true,
-      pauseOnFocusLoss: true,
-      pauseOnHover: true,
-      draggable: true,
-      draggablePercent: 0.6,
-      showCloseButtonOnHover: false,
-      hideProgressBar: true,
-      closeButton: 'button',
-      icon: true,
-      rtl: false,
-    })
+  } catch (error) {
+    console.error(error)
+    toast.error('Ha ocurrido un error inesperado')
   }
 }
 </script>

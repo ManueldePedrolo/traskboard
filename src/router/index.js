@@ -3,8 +3,7 @@ import LogingVista from '@/vistas/LogingVista.vue'
 import RegisterVista from '@/vistas/RegisterVista.vue'
 import Workspace from '@/vistas/Workspace.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import { estaAuntenticado } from '@/services/autentication'
-import { enviarEmailVerificacion } from '@/services/autentication'
+import { auth } from '@/firebase/config' // Importamos auth directamente
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,16 +16,24 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth) {
-    if (estaAuntenticado()) {
-      if (enviarEmailVerificacion) {
-        next()
-      }
-    } else {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  const user = auth.currentUser // Obtenemos el usuario actual de Firebase
+
+  if (requiresAuth) {
+    if (!user) {
+      // Si no hay usuario, al login
       next('/login')
+    } else if (!user.emailVerified) {
+      // Si hay usuario pero NO está verificado, al login
+      // Podrías poner un toast aquí avisando "Revisa tu correo"
+      next('/login')
+    } else {
+      // Logueado y verificado -> Pasa
+      next()
     }
   } else {
     next()
   }
 })
+
 export default router
